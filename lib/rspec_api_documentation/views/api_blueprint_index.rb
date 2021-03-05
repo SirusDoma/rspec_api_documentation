@@ -14,9 +14,10 @@ module RspecApiDocumentation
 
             methods = examples.group_by(&:http_method).map do |http_method, examples|
               {
-                http_method: http_method,
-                description: examples.first.respond_to?(:action_name) && examples.first.action_name,
-                examples: examples
+                http_method:    http_method,
+                description:    examples.first.respond_to?(:action_name) && examples.first.action_name,
+                action_summary: examples.first[:action_summary],
+                examples:       examples
               }
             end
 
@@ -25,6 +26,7 @@ module RspecApiDocumentation
               "has_parameters?".to_sym => params.size > 0,
               route: format_route(examples[0]),
               route_name: examples[0][:route_name],
+              route_summary: examples[0][:route_summary],
               attributes: attrs,
               parameters: params,
               http_methods: methods

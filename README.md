@@ -322,7 +322,10 @@ This [format](https://apiblueprint.org) (APIB) has additional functions:
 
   ```ruby
   route "/orders", "Orders Collection" do
+    route_summary 'Collection of orders API, put your summary here if neccessary!'
+
     get "Returns all orders" do
+      description 'Be aware of something that might unexpected, explain here!'
       # ...
     end
 
@@ -331,9 +334,6 @@ This [format](https://apiblueprint.org) (APIB) has additional functions:
     end
   end
   ```
-
-  If you don't use `route`, then param in `get(param)` should be an URL as
-  states in the rest of this documentation.
 
 * `attribute`: APIB has attributes besides parameters. Use attributes exactly
   like you'd use `parameter` (see documentation below).

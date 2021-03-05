@@ -50,6 +50,8 @@ module RspecApiDocumentation::DSL
         options[:route_uri] = args[0].gsub(/\{.*\}/, "")
         options[:route_optionals] = (optionals = args[0].match(/(\{.*\})/) and optionals[-1])
         options[:route_name] = args[1]
+        options[:route_summary] = metadata[:route_summary]
+        options[:action_summary] = metadata[:action_summary]
         args.push(options)
         context(*args, &block)
       end
@@ -91,6 +93,10 @@ module RspecApiDocumentation::DSL
 
       def explanation(text)
         safe_metadata(:resource_explanation, text)
+      end
+
+      def action_summary(text)
+        safe_metadata(:action_summary, text)
       end
 
       private

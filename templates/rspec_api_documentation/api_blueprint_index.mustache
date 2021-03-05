@@ -4,25 +4,13 @@ FORMAT: 1A
 {{# sections }}
 
 # Group {{ resource_name }}
-{{# resource_explanation }}
-
 {{{ resource_explanation }}}
-{{/ resource_explanation }}
-{{# description }}
-
-{{ description }}
-{{/ description }}
 {{# routes }}
 
 ## {{ route_name }} [{{ route }}]
-{{# description }}
-
-description: {{ description }}
-{{/ description }}
-{{# explanation }}
-
-explanation: {{ explanation }}
-{{/ explanation }}
+{{# route_summary }}
+{{ route_summary }}
+{{/ route_summary }}
 {{# has_parameters? }}
 
 + Parameters
@@ -64,6 +52,7 @@ explanation: {{ explanation }}
 {{# http_methods }}
 
 ### {{ description }} [{{ http_method }}]
+{{ action_summary }}
 {{# examples }}
 {{# requests }}
 {{# has_request? }}
