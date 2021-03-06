@@ -10,26 +10,26 @@ module RspecApiDocumentation
         super.map do |section|
           routes = section[:examples].group_by { |e| "#{e.route_uri}#{e.route_optionals}#{e.route_name}" }.map do |route, examples|
             attrs  = fields(:attributes, examples)
-            params = fields(:parameters, examples)
-
             methods = examples.group_by(&:http_method).map do |http_method, examples|
+              params = fields(:parameters, examples)
+
               {
-                http_method:    http_method,
-                description:    examples.first.respond_to?(:action_name) && examples.first.action_name,
-                action_summary: examples.first[:action_summary],
-                examples:       examples
+                http_method:     http_method,
+                description:     examples.first.respond_to?(:action_name) && examples.first.action_name,
+                action_summary:  examples.first[:action_summary],       
+                has_parameters?: params.present?,
+                parameters:      params,
+                examples:        examples
               }
             end
 
             {
-              "has_attributes?".to_sym => attrs.size > 0,
-              "has_parameters?".to_sym => params.size > 0,
-              route: format_route(examples[0]),
-              route_name: examples[0][:route_name],
-              route_summary: examples[0][:route_summary],
-              attributes: attrs,
-              parameters: params,
-              http_methods: methods
+              route:           format_route(examples[0]),
+              route_name:      examples[0][:route_name],
+              route_summary:   examples[0][:route_summary],
+              has_attributes?: attrs.present?,
+              attributes:      attrs,
+              http_methods:    methods
             }
           end
 

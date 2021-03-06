@@ -8,11 +8,23 @@ module RspecApiDocumentation::DSL
         define_method method do |*args, &block|
           options = args.extract_options!
           options[:method] = method
-          if metadata[:route_uri]
-            options[:route] = metadata[:route_uri]
-            options[:action_name] = args.first
+
+          uri    = args.first
+          name   = options[:route]
+          action = options[:action] || args.second || name
+
+          if metadata[:route_uri] && (name == metadata[:route_uri] || name.blank?)
+            options[:route]       = metadata[:route_uri]
+            options[:action_name] = action || name || uri
           else
-            options[:route] = args.first
+            metadata[:route_uri]       = uri
+            metadata[:route_name]      = name
+            metadata[:route_optionals] = (optionals = args[0].match(/(\{.*\})/) and optionals[-1])
+
+            options[:route]          = metadata[:route_uri]
+            options[:action_name]    = action || name || uri
+            options[:route_summary]  = metadata[:route_summary]
+            options[:action_summary] = metadata[:action_summary]
           end
           options[:api_doc_dsl] = :endpoint
           args.push(options)

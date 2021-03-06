@@ -7,29 +7,13 @@ FORMAT: 1A
 {{{ resource_explanation }}}
 {{# routes }}
 
+{{# route_name}}
 ## {{ route_name }} [{{ route }}]
-{{# route_summary }}
+{{/ route_name}}
+{{^ route_name}}
+## {{ route }}
+{{/ route_name}}
 {{ route_summary }}
-{{/ route_summary }}
-{{# has_parameters? }}
-
-+ Parameters
-{{# parameters }}
-  + {{ name }}{{# example }}: {{ example }}{{/ example }}{{# properties_description }} ({{ properties_description }}){{/ properties_description }}{{# description }} - {{ description }}{{/ description }}
-      {{# has_default?}}
-      + Default: `{{default}}`
-      {{/ has_default?}}
-      {{# has_enum?}}
-      + Members
-        {{# enum}}
-          + `{{.}}`
-        {{/ enum}}
-      {{/ has_enum?}}
-  {{# annotations }}
-      {{ . }}
-  {{/ annotations }}
-{{/ parameters }}
-{{/ has_parameters? }}
 {{# has_attributes? }}
 
 + Attributes (object)
@@ -53,6 +37,25 @@ FORMAT: 1A
 
 ### {{ description }} [{{ http_method }}]
 {{ action_summary }}
+{{# has_parameters? }}
+
++ Parameters
+{{# parameters }}
+  + {{ name }}{{# example }}: {{ example }}{{/ example }}{{# properties_description }} ({{ properties_description }}){{/ properties_description }}{{# description }} - {{ description }}{{/ description }}
+      {{# has_default?}}
+      + Default: `{{default}}`
+      {{/ has_default?}}
+      {{# has_enum?}}
+      + Members
+        {{# enum}}
+          + `{{.}}`
+        {{/ enum}}
+      {{/ has_enum?}}
+  {{# annotations }}
+      {{ . }}
+  {{/ annotations }}
+{{/ parameters }}
+{{/ has_parameters? }}
 {{# examples }}
 {{# requests }}
 {{# has_request? }}
