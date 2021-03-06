@@ -11,7 +11,7 @@ Check out a [sample](http://rad-example.herokuapp.com).
 
 ## Fork Note
 
-This fork focus on [format](https://apiblueprint.org) format to fix and improve api blueprint generator.  
+This fork focus on [API Blueprint](https://apiblueprint.org) format to fix and improve api blueprint generator.  
 Refer to [original repository](https://github.com/zipmark/rspec_api_documentation) for instruction for other formats.
 
 You can use original functions for `:api_blueprint` that inherited from original implementation.  
@@ -38,6 +38,7 @@ In addition, you can also put comment on your route and action section via `rout
   like you'd use `parameter` (see documentation below).
 
 You can also use http verb function directly to instead of using `route` now, which seems doesn't work in original implementation.  
+
 Additionally, you may specify route name and action name altogether. The preceeding tests will inherit route name as long as it share same route, so you don't have to repeat route name setting.  
 
 For `parameter`, you can define inside the action, it will rendered inside the action section instead of resource section
